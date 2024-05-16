@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2F4A6C612BF1D39F001AA4DB /* Main ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4A6C602BF1D39F001AA4DB /* Main ViewController.swift */; };
+		2F4A6C632BF1D3B7001AA4DB /* Settings ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4A6C622BF1D3B7001AA4DB /* Settings ViewController.swift */; };
+		2F4A6C652BF1D3C8001AA4DB /* Quiz ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4A6C642BF1D3C8001AA4DB /* Quiz ViewController.swift */; };
+		2F4A6C692BF1D3F1001AA4DB /* Final ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4A6C682BF1D3F1001AA4DB /* Final ViewController.swift */; };
+		2F4A6C6B2BF1D4F1001AA4DB /* Pages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4A6C6A2BF1D4F1001AA4DB /* Pages.swift */; };
 		2F63DCF52BE29B7C0028F638 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F63DCF42BE29B7C0028F638 /* AppDelegate.swift */; };
 		2F63DCF72BE29B7C0028F638 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F63DCF62BE29B7C0028F638 /* SceneDelegate.swift */; };
 		2F63DCF92BE29B7C0028F638 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F63DCF82BE29B7C0028F638 /* ViewController.swift */; };
@@ -36,6 +41,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2F4A6C602BF1D39F001AA4DB /* Main ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Main ViewController.swift"; sourceTree = "<group>"; };
+		2F4A6C622BF1D3B7001AA4DB /* Settings ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Settings ViewController.swift"; sourceTree = "<group>"; };
+		2F4A6C642BF1D3C8001AA4DB /* Quiz ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Quiz ViewController.swift"; sourceTree = "<group>"; };
+		2F4A6C682BF1D3F1001AA4DB /* Final ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Final ViewController.swift"; sourceTree = "<group>"; };
+		2F4A6C6A2BF1D4F1001AA4DB /* Pages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pages.swift; sourceTree = "<group>"; };
 		2F63DCF12BE29B7C0028F638 /* iQuiz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iQuiz.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F63DCF42BE29B7C0028F638 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2F63DCF62BE29B7C0028F638 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -102,6 +112,11 @@
 				2F63DCF42BE29B7C0028F638 /* AppDelegate.swift */,
 				2F63DCF62BE29B7C0028F638 /* SceneDelegate.swift */,
 				2F63DCF82BE29B7C0028F638 /* ViewController.swift */,
+				2F4A6C602BF1D39F001AA4DB /* Main ViewController.swift */,
+				2F4A6C642BF1D3C8001AA4DB /* Quiz ViewController.swift */,
+				2F4A6C682BF1D3F1001AA4DB /* Final ViewController.swift */,
+				2F4A6C6A2BF1D4F1001AA4DB /* Pages.swift */,
+				2F4A6C622BF1D3B7001AA4DB /* Settings ViewController.swift */,
 				2F63DCFA2BE29B7C0028F638 /* Main.storyboard */,
 				2F63DCFD2BE29B7F0028F638 /* Assets.xcassets */,
 				2F63DCFF2BE29B7F0028F638 /* LaunchScreen.storyboard */,
@@ -258,9 +273,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2F4A6C612BF1D39F001AA4DB /* Main ViewController.swift in Sources */,
 				2F63DCF92BE29B7C0028F638 /* ViewController.swift in Sources */,
+				2F4A6C652BF1D3C8001AA4DB /* Quiz ViewController.swift in Sources */,
 				2F63DCF52BE29B7C0028F638 /* AppDelegate.swift in Sources */,
 				2F63DCF72BE29B7C0028F638 /* SceneDelegate.swift in Sources */,
+				2F4A6C6B2BF1D4F1001AA4DB /* Pages.swift in Sources */,
+				2F4A6C692BF1D3F1001AA4DB /* Final ViewController.swift in Sources */,
+				2F4A6C632BF1D3B7001AA4DB /* Settings ViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
