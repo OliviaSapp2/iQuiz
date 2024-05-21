@@ -23,6 +23,7 @@ class Quiz_ViewController: UIViewController {
         submitButton.isHidden = false
         selectAns.isHidden = true
         setToGray(true, true, true, true)
+        setQuestion("question", ["a", "b", "c", "d"], 1)
         // Do any additional setup after loading the view.
     }
     @IBOutlet weak var choice1: UIButton!
@@ -44,13 +45,18 @@ class Quiz_ViewController: UIViewController {
     @IBOutlet weak var selectAns: UILabel!
     
     
+    
+    
     var numQuestion = 0;
     var pointsX = 0
     var pointsY = 0
-    var answer = 1;
-    var guess = 0;
+    var answer = 1
+    var guess = 0
     var choices: [String] = []
-    var questionsList = [quizTopics] = []
+    //var questionsList
+    var receivedData: Any?
+    var finalScore = "points"
+    
     
     //question view
     func setQuestion(_ question: String, _ choicesList: [String], _ setAnswer: Int){
@@ -119,17 +125,12 @@ class Quiz_ViewController: UIViewController {
                 correctLable.text = "Correct! :)"
                 //correct color is green
                 getGuess(guess).backgroundColor = UIColor.green
-                pointsX += 1
-                pointsY += 1
-                pointsLable.text = "Points: \(pointsX) '\' \(pointsY)"
             } else{
                 correctLable.text = "Inorrect! :("
                 //correct color is green
-                //getGuess(answer).backgroundColor = UIColor.green
+                getGuess(answer).backgroundColor = UIColor.green
                 // incorrect color is red
                 getGuess(guess).backgroundColor = UIColor.red
-                pointsY += 1
-                pointsLable.text = "Points: \(pointsX) '\' \(pointsY)"
             }
             selectAns.isHidden = true
             submitButton.isHidden = true
@@ -143,28 +144,37 @@ class Quiz_ViewController: UIViewController {
     }
     
     //next button
-    
     @IBAction func clickNext(_ sender: Any) {
         //next question?
-        if(){
+        if(numQuestion == 0){ // change this check
             numQuestion += 1
-            setQuestion(<#T##question: String##String#>, <#T##choicesList: [String]##[String]#>, <#T##setAnswer: Int##Int#>)
+            setQuestion("String", ["1", "2", "3", "4"], 2)
         } else{
             // send points to final page
-            
+            if(pointsY == pointsX){
+                finalScore = "Points: \(pointsX) '\' \(pointsY) \n Great Job!"
+            } else if(pointsX == 0){
+                finalScore = "Points: \(pointsX) '\' \(pointsY) \n Better Luck Next Time"
+            } else{
+                finalScore = "Points: \(pointsX) '\' \(pointsY) \n Almost"
+            }
             //send to final page
-            let storyboard = UIStoryboard(name: "Final_ViewController", bundle: nil)
-            let finalVC = storyboard.instantiateViewController(identifier: "final")
-            show(finalVC, sender: self)
+            performSegue(withIdentifier: "showFinal", sender: nextButton)
         }
         
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showFinal",
+           let destinationVC = segue.destination as?Quiz_ViewController {
+            destinationVC.receivedData = finalScore
+        }
+    }
+    
     //back button
     @IBAction func clickBack(_ sender: Any) {
         // send to home
-        let storyboard = UIStoryboard(name: "ViewController", bundle: nil)
-        let homeVC = storyboard.instantiateViewController(identifier: "main")
-        show(homeVC, sender: self)
+        performSegue(withIdentifier: "backHome", sender: backButton)
     }
     
     
@@ -183,9 +193,8 @@ class Quiz_ViewController: UIViewController {
             return choice2
         } else  if(choice == 3){
             return choice3
-        } else if(choice == 4){
-            return choice4
         }
+        return choice4
     }
     
     // sets buttons back to their defult color

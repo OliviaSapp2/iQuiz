@@ -11,37 +11,20 @@ class Final_ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        pointsLable.text = "Points: \(pointsX) '\' \(pointsY)"
-        setPerformanceLable()
-
+        pointsLable.text = receivedData
         // Do any additional setup after loading the view.
     }
     
     @IBOutlet weak var nextButon: UIButton!
-    @IBOutlet weak var PerformanceLable: UILabel!
     @IBOutlet weak var pointsLable: UILabel!
     
-    var pointsX = 0
-    var pointsY = 0
+    var receivedData: String?
     
     @IBAction func clickNextButton(_ sender: Any) {
         // send to home
-        let storyboard = UIStoryboard(name: "ViewController", bundle: nil)
-        let homeVC = storyboard.instantiateViewController(identifier: "main")
-        show(homeVC, sender: self)
+        performSegue(withIdentifier: "sendHome", sender: nextButon)
     }
     
-    func setPerformanceLable(){
-        if(pointsX == pointsY){
-            PerformanceLable.text = "Great Job!"
-        } else if (pointsX == 0 && pointsY != 0){
-            PerformanceLable.text = "Better Luck Next Time"
-
-        } else{
-            PerformanceLable.text = "Almost"
-        }
-        
-    }
     
     /*
     // MARK: - Navigation

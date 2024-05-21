@@ -19,9 +19,7 @@ class Settings_ViewController: UIViewController {
     @IBOutlet weak var OkayButton: UIButton!
     
     @IBAction func clickSubmitButton(_ sender: Any) {
-        let storyboard = UIStoryboard(name: "ViewController", bundle: nil)
-        let homeVC = storyboard.instantiateViewController(identifier: "main")
-        show(homeVC, sender: self)
+        performSegue(withIdentifier: "toHome", sender: OkayButton)
     }
     
     
