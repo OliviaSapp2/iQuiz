@@ -7,15 +7,18 @@
 
 import UIKit
 
+
+
 class Quiz_ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        numQuestion = 0;
+        numQuestion = 0
+        guess = 0
         pointsX = 0
         pointsY = 0
-        pointsLable.text = "Points: \(pointsX) '\' \(pointsY)"
+        pointsLable.text = "Points: 0 / 0"
         
         correctLable.isHidden = true
         nextButton.isHidden = true
@@ -23,8 +26,8 @@ class Quiz_ViewController: UIViewController {
         submitButton.isHidden = false
         selectAns.isHidden = true
         setToGray(true, true, true, true)
-        setQuestion("question", ["a", "b", "c", "d"], 1)
-        // Do any additional setup after loading the view.
+        print(receivedData!)
+        findQuestion(receivedData!)
     }
     @IBOutlet weak var choice1: UIButton!
     @IBOutlet weak var choice2: UIButton!
@@ -50,11 +53,10 @@ class Quiz_ViewController: UIViewController {
     var numQuestion = 0;
     var pointsX = 0
     var pointsY = 0
-    var answer = 1
+    var answer = 0
     var guess = 0
     var choices: [String] = []
-    //var questionsList
-    var receivedData: Any?
+    var receivedData: String?
     var finalScore = "points"
     
     
@@ -68,7 +70,7 @@ class Quiz_ViewController: UIViewController {
         choice2.setTitle(choices[1], for: .normal)
         choice3.setTitle(choices[2], for: .normal)
         choice4.setTitle(choices[3], for: .normal)
-        pointsLable.text = "Points: \(pointsX) '\' \(pointsY)"
+        pointsLable.text = "Points: \(pointsX) / \(pointsY)"
         // change all buttons to grey
         setToGray(true, true, true, true)
         selectAns.isHidden = true
@@ -120,7 +122,9 @@ class Quiz_ViewController: UIViewController {
     
     //answer view
     @IBAction func submited(_ sender: Any) {
-        if(guess != 0){ // make sure they picked an answer
+        if(guess == 0){ // make sure they picked an answer
+            selectAns.isHidden = false
+        } else {
             if isCorrect(){
                 correctLable.text = "Correct! :)"
                 //correct color is green
@@ -140,33 +144,39 @@ class Quiz_ViewController: UIViewController {
             
             updatePoints();
         }
-        selectAns.isHidden = false
     }
     
     //next button
     @IBAction func clickNext(_ sender: Any) {
-        //next question?
-        if(numQuestion == 0){ // change this check
-            numQuestion += 1
-            setQuestion("String", ["1", "2", "3", "4"], 2)
-        } else{
-            // send points to final page
-            if(pointsY == pointsX){
-                finalScore = "Points: \(pointsX) '\' \(pointsY) \n Great Job!"
-            } else if(pointsX == 0){
-                finalScore = "Points: \(pointsX) '\' \(pointsY) \n Better Luck Next Time"
-            } else{
-                finalScore = "Points: \(pointsX) '\' \(pointsY) \n Almost"
-            }
             //send to final page
             performSegue(withIdentifier: "showFinal", sender: nextButton)
+    }
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if identifier == "showFinal"{
+            if(receivedData == "Marvel Super Heroes" && (numQuestion == 1 || numQuestion == 0)){
+                numQuestion += 1
+                findQuestion(receivedData)
+                return false
+            } else{
+                return true
+            }
+        } else{
+            return false
         }
-        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showFinal",
-           let destinationVC = segue.destination as?Quiz_ViewController {
+           let destinationVC = segue.destination as?Final_ViewController {
+            // send points to final page
+            if(pointsY == pointsX){
+                finalScore = "Points: \(pointsX) / \(pointsY)  Great Job!"
+            } else if(pointsX == 0){
+                finalScore = "Points: \(pointsX) / \(pointsY) Better Luck Next Time"
+            } else{
+                finalScore = "Points: \(pointsX) / \(pointsY) Almost"
+            }
             destinationVC.receivedData = finalScore
         }
     }
@@ -183,7 +193,7 @@ class Quiz_ViewController: UIViewController {
         if isCorrect(){
             pointsX += 1
         }
-        pointsLable.text = "Points: \(pointsX) '\' \(pointsY)"
+        pointsLable.text = "Points: \(pointsX) / \(pointsY)"
     }
     
     func getGuess(_ choice: Int) -> UIButton{
@@ -200,16 +210,16 @@ class Quiz_ViewController: UIViewController {
     // sets buttons back to their defult color
     func setToGray(_ b1: Bool, _ b2: Bool, _ b3: Bool, _ b4: Bool){
         if(b1){
-            choice1.backgroundColor = UIColor.gray
+            choice1.backgroundColor = UIColor.systemGray5
         }
         if(b2){
-            choice2.backgroundColor = UIColor.gray
+            choice2.backgroundColor = UIColor.systemGray5
         }
         if(b3){
-            choice3.backgroundColor = UIColor.gray
+            choice3.backgroundColor = UIColor.systemGray5
         }
         if(b4){
-            choice4.backgroundColor = UIColor.gray
+            choice4.backgroundColor = UIColor.systemGray5
         }
     }
     
@@ -220,6 +230,48 @@ class Quiz_ViewController: UIViewController {
             correct = true
         }
         return correct
+    }
+    
+    //chosing the data for set question
+    func findQuestion(_ topic: String?){
+        if topic == "Science!"{
+            setQuestion("What is fire?", [
+                "One of the four classical elements",
+                "A magical reaction given to us by God",
+                "A band that hasn't yet been discovered",
+                "Fire! Fire! Fire! heh-heh"
+              ], 1)
+        } else if topic == "Mathematics"{
+            setQuestion("What is 2+2?", [
+                "4",
+                "22",
+                "An irrational number",
+                "Nobody knows"
+              ], 1)
+        } else if topic == "Marvel Super Heroes" {
+            if numQuestion == 0 {
+                setQuestion("Who is Iron Man?", [
+                    "Tony Stark",
+                    "Obadiah Stane",
+                    "A rock hit by Megadeth",
+                    "Nobody knows"
+                  ], 1)
+            } else if numQuestion == 1 {
+                setQuestion("Who founded the X-Men?", [
+                    "Tony Stark",
+                    "Professor X",
+                    "The X-Institute",
+                    "Erik Lensherr"
+                  ], 2)
+            } else if numQuestion == 2 {
+                setQuestion("How did Spider-Man get his powers?", [
+                    "He was bitten by a radioactive spider",
+                    "He ate a radioactive spider",
+                    "He is a radioactive spider",
+                    "He looked at a radioactive spider"
+                  ], 1)
+            }
+        }
     }
     
      /*

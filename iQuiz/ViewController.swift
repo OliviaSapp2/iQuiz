@@ -70,7 +70,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     @IBOutlet weak var tableView: UITableView!
     
-    
+    //var dataToPass = String()
+    var dataToPass = "Marvel Super Heroes"
     
     let quizTopics =  [
         ("Mathematics", "Did you pass the third grade?"),
@@ -106,25 +107,26 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         return cell
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "setQuestion",
-           let destinationVC = segue.destination as?Quiz_ViewController {
-            //dataToPass = data
-            destinationVC.receivedData = dataToPass
-        }
-    }
-    
-    var dataToPass = ("example", "ex")
-    
     //change view to the quiz page
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // Get the selected topic
-        dataToPass = quizTopics[indexPath.row]
+       dataToPass = quizTopics[indexPath.row].0
         
         // Perform the segue to the question view controller
         performSegue(withIdentifier: "setQuestion", sender: self)
-        
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "setQuestion",
+           let destinationVC = segue.destination as?Quiz_ViewController {
+            print(dataToPass)
+            let datas = dataToPass
+            print(datas)
+            destinationVC.receivedData = datas
+        }
+    }
+    
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
             return 170
         }
